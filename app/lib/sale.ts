@@ -20,10 +20,27 @@ export function isOnSale(category: string): boolean {
   return (SUMMIT_SALE.categories as readonly string[]).includes(category);
 }
 
+/**
+ * Returns the discounted price after applying the Summit Sale discount.
+ *
+ * Multiplies the original price by the configured discount rate.
+ *
+ * @example
+ *   // With SUMMIT_SALE.discount = 0.1 (10% off)
+ *   getSalePrice(100)    // => 90
+ *   getSalePrice(1999.99) // => 1799.99
+ */
 export function getSalePrice(originalPrice: number): number {
   return originalPrice * SUMMIT_SALE.discount;
 }
 
+/**
+ * Human-readable discount label used on the Summit Sale badge.
+ *
+ * @example
+ *   // With SUMMIT_SALE.discount = 0.1
+ *   getDiscountPercentLabel() // => "10% OFF"
+ */
 export function getDiscountPercentLabel(): string {
   return `${Math.round(SUMMIT_SALE.discount * 100)}% OFF`;
 }
