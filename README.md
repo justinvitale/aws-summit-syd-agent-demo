@@ -1,7 +1,7 @@
 # ▲ Shop
 
 The official Vercel merchandise storefront. Built with Next.js App Router,
-React Server Components, and Tailwind CSS. Product data is provided by the
+React Server Components, and Tailwind CSS v4. Product data is provided by the
 [Fake Store API](https://fakestoreapi.com).
 
 ## Getting started
