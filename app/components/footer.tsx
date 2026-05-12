@@ -6,12 +6,10 @@ const SECTIONS: { title: string; links: { href: string; label: string }[] }[] =
     {
       title: "Shop",
       links: [
-        { href: "/", label: "All products" },
-        { href: "/?category=laptops", label: "Laptops" },
-        { href: "/?category=smartphones", label: "Smartphones" },
-        { href: "/?category=mens-shirts", label: "Men's apparel" },
-        { href: "/?category=womens-dresses", label: "Women's apparel" },
-        { href: "/?category=sunglasses", label: "Sunglasses" },
+        { href: "/", label: "All laptops" },
+        { href: "/", label: "Summit Sale" },
+        { href: "/", label: "Accessories" },
+        { href: "/", label: "Gift cards" },
       ],
     },
     {
@@ -50,8 +48,7 @@ export function Footer() {
               <span>Shop</span>
             </Link>
             <p className="mt-3 text-sm text-[var(--muted)] max-w-xs">
-              The official Vercel store. Apparel, accessories, and gear for
-              builders.
+              The official Vercel laptop shop. Built for people who ship.
             </p>
           </div>
           {SECTIONS.map((section) => (

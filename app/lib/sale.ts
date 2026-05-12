@@ -11,7 +11,7 @@ export const SUMMIT_SALE = {
   /** Discount applied to eligible products. 0.1 = 10% off. */
   discount: 0.1,
   /** Category slugs that participate in the sale. */
-  categories: ["laptops", "smartphones", "tablets"] as const,
+  categories: ["laptops"] as const,
   label: "Summit Sale",
 } as const;
 

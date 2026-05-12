@@ -1,13 +1,15 @@
-import type { Category, Product, ProductListResponse } from "./types";
+import type { Product, ProductListResponse } from "./types";
 
 const BASE_URL = "https://dummyjson.com";
 const REVALIDATE_SECONDS = 60 * 5;
 const DEFAULT_LIMIT = 100;
+const STOREFRONT_CATEGORY = "laptops";
 
 export async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${BASE_URL}/products?limit=${DEFAULT_LIMIT}`, {
-    next: { revalidate: REVALIDATE_SECONDS },
-  });
+  const res = await fetch(
+    `${BASE_URL}/products/category/${STOREFRONT_CATEGORY}?limit=${DEFAULT_LIMIT}`,
+    { next: { revalidate: REVALIDATE_SECONDS } },
+  );
   if (!res.ok) {
     throw new Error(`Failed to load products: ${res.status}`);
   }
@@ -28,16 +30,6 @@ export async function getProduct(id: string | number): Promise<Product | null> {
   const data = JSON.parse(text);
   if (!data || typeof data !== "object" || "message" in data) return null;
   return data as Product;
-}
-
-export async function getCategories(): Promise<Category[]> {
-  const res = await fetch(`${BASE_URL}/products/categories`, {
-    next: { revalidate: REVALIDATE_SECONDS },
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to load categories: ${res.status}`);
-  }
-  return res.json();
 }
 
 export async function getProductsByCategory(

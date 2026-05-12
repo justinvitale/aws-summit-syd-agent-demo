@@ -3,10 +3,9 @@ import { TriangleLogo } from "./triangle-logo";
 
 const NAV_LINKS = [
   { href: "/", label: "Shop" },
-  { href: "/?category=laptops", label: "Laptops" },
-  { href: "/?category=smartphones", label: "Phones" },
-  { href: "/?category=mens-shirts", label: "Apparel" },
-  { href: "/?category=sunglasses", label: "Accessories" },
+  { href: "/", label: "Laptops" },
+  { href: "/", label: "Deals" },
+  { href: "/", label: "Support" },
 ];
 
 export function Header() {
@@ -25,7 +24,7 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-6 text-sm text-[var(--muted)]">
             {NAV_LINKS.map((link) => (
               <Link
-                key={link.href + link.label}
+                key={link.label}
                 href={link.href}
                 className="hover:text-black transition-colors"
               >
