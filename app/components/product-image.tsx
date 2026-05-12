@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 type Props = {
   src: string;
@@ -15,6 +18,8 @@ export function ProductImage({
   sizes,
   className,
 }: Props) {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div
       className={
@@ -22,13 +27,23 @@ export function ProductImage({
         (className ?? "")
       }
     >
+      {isLoading && (
+        <div
+          className="absolute inset-0 animate-pulse bg-zinc-100"
+          aria-hidden="true"
+        />
+      )}
       <Image
         src={src}
         alt={alt}
         fill
         priority={priority}
         sizes={sizes ?? "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"}
-        className="object-contain p-6 transition-transform duration-300 ease-out group-hover:scale-105"
+        onLoad={() => setIsLoading(true)}
+        className={
+          "object-contain p-6 transition-all duration-500 ease-out group-hover:scale-105 " +
+          (isLoading ? "opacity-0" : "opacity-100")
+        }
       />
     </div>
   );
