@@ -7,10 +7,11 @@ const SECTIONS: { title: string; links: { href: string; label: string }[] }[] =
       title: "Shop",
       links: [
         { href: "/", label: "All products" },
-        { href: "/?category=electronics", label: "Electronics" },
-        { href: "/?category=jewelery", label: "Jewelery" },
-        { href: "/?category=men%27s%20clothing", label: "Men's clothing" },
-        { href: "/?category=women%27s%20clothing", label: "Women's clothing" },
+        { href: "/?category=laptops", label: "Laptops" },
+        { href: "/?category=smartphones", label: "Smartphones" },
+        { href: "/?category=mens-shirts", label: "Men's apparel" },
+        { href: "/?category=womens-dresses", label: "Women's apparel" },
+        { href: "/?category=sunglasses", label: "Sunglasses" },
       ],
     },
     {

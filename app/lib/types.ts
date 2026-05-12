@@ -1,18 +1,33 @@
 export type Product = {
   id: number;
   title: string;
-  price: number;
   description: string;
   category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand?: string;
+  sku: string;
+  tags: string[];
+  availabilityStatus: string;
+  warrantyInformation: string;
+  shippingInformation: string;
+  returnPolicy: string;
+  minimumOrderQuantity: number;
+  images: string[];
+  thumbnail: string;
 };
 
-export type Category =
-  | "electronics"
-  | "jewelery"
-  | "men's clothing"
-  | "women's clothing";
+export type Category = {
+  slug: string;
+  name: string;
+  url: string;
+};
+
+export type ProductListResponse = {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
+};

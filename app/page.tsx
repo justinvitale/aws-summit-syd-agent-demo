@@ -20,6 +20,9 @@ export default async function Home({
     category ? getProductsByCategory(category) : getProducts(),
   ]);
 
+  const activeCategoryName =
+    categories.find((c) => c.slug === category)?.name ?? "All products";
+
   return (
     <>
       <section className="border-b border-[var(--border)]">
@@ -42,7 +45,7 @@ export default async function Home({
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-sm font-mono uppercase tracking-wider text-[var(--muted)]">
-            {category ? prettifyCategory(category) : "All products"}
+            {activeCategoryName}
           </h2>
           <span className="text-xs font-mono text-[var(--muted)]">
             {products.length} {products.length === 1 ? "item" : "items"}
@@ -61,11 +64,4 @@ export default async function Home({
       </section>
     </>
   );
-}
-
-function prettifyCategory(category: string): string {
-  return category
-    .split(" ")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
 }

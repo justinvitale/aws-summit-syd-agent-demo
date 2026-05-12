@@ -38,7 +38,8 @@ export default async function ProductDetailPage({
     .filter((p) => p.id !== product.id)
     .slice(0, 4);
 
-  const rating = product.rating;
+  const heroImage = product.images?.[0] ?? product.thumbnail;
+  const categoryLabel = prettyCategory(product.category);
 
   return (
     <>
@@ -52,7 +53,7 @@ export default async function ProductDetailPage({
             href={`/?category=${encodeURIComponent(product.category)}`}
             className="hover:text-black transition-colors"
           >
-            {product.category}
+            {categoryLabel}
           </Link>
           <span aria-hidden>/</span>
           <span className="truncate text-black">{product.title}</span>
@@ -63,7 +64,7 @@ export default async function ProductDetailPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           <div className="border border-[var(--border)]">
             <ProductImage
-              src={product.image}
+              src={heroImage}
               alt={product.title}
               priority
               sizes="(min-width: 768px) 50vw, 100vw"
@@ -72,7 +73,8 @@ export default async function ProductDetailPage({
 
           <div className="md:sticky md:top-20">
             <p className="text-xs font-mono uppercase tracking-wider text-[var(--muted)]">
-              {product.category}
+              {product.brand ? `${product.brand} · ` : ""}
+              {categoryLabel}
             </p>
             <h1 className="mt-3 text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
               {product.title}
@@ -81,10 +83,8 @@ export default async function ProductDetailPage({
             <div className="mt-4 flex items-center gap-4">
               <Price value={product.price} className="text-2xl" />
               <div className="flex items-center gap-1 text-sm text-[var(--muted)]">
-                <StarRow rate={rating.rate} />
-                <span className="font-mono">
-                  {rating.rate.toFixed(1)} ({rating.count})
-                </span>
+                <StarRow rate={product.rating} />
+                <span className="font-mono">{product.rating.toFixed(1)}</span>
               </div>
             </div>
 
@@ -95,9 +95,10 @@ export default async function ProductDetailPage({
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="inline-flex items-center justify-center bg-black text-white px-6 h-11 text-sm font-medium hover:bg-zinc-800 transition-colors"
+                className="inline-flex items-center justify-center bg-black text-white px-6 h-11 text-sm font-medium hover:bg-zinc-800 transition-colors disabled:opacity-50"
+                disabled={product.stock === 0}
               >
-                Add to cart
+                {product.stock === 0 ? "Out of stock" : "Add to cart"}
               </button>
               <button
                 type="button"
@@ -111,17 +112,19 @@ export default async function ProductDetailPage({
               <dt className="text-[var(--muted)] font-mono uppercase text-xs">
                 SKU
               </dt>
-              <dd className="font-mono">
-                VRCL-{String(product.id).padStart(4, "0")}
-              </dd>
+              <dd className="font-mono">{product.sku}</dd>
+              <dt className="text-[var(--muted)] font-mono uppercase text-xs">
+                Availability
+              </dt>
+              <dd>{product.availabilityStatus}</dd>
               <dt className="text-[var(--muted)] font-mono uppercase text-xs">
                 Shipping
               </dt>
-              <dd>Free over $75</dd>
+              <dd>{product.shippingInformation}</dd>
               <dt className="text-[var(--muted)] font-mono uppercase text-xs">
                 Returns
               </dt>
-              <dd>30-day window</dd>
+              <dd>{product.returnPolicy}</dd>
             </dl>
           </div>
         </div>
@@ -141,6 +144,13 @@ export default async function ProductDetailPage({
       )}
     </>
   );
+}
+
+function prettyCategory(slug: string): string {
+  return slug
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
 function StarRow({ rate }: { rate: number }) {

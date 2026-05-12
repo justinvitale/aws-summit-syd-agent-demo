@@ -1,17 +1,18 @@
-import type { Product } from "./types";
+import type { Category, Product, ProductListResponse } from "./types";
 
-const BASE_URL = "https://fakestoreapi.com";
-
+const BASE_URL = "https://dummyjson.com";
 const REVALIDATE_SECONDS = 60 * 5;
+const DEFAULT_LIMIT = 100;
 
 export async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${BASE_URL}/products`, {
+  const res = await fetch(`${BASE_URL}/products?limit=${DEFAULT_LIMIT}`, {
     next: { revalidate: REVALIDATE_SECONDS },
   });
   if (!res.ok) {
     throw new Error(`Failed to load products: ${res.status}`);
   }
-  return res.json();
+  const data = (await res.json()) as ProductListResponse;
+  return data.products;
 }
 
 export async function getProduct(id: string | number): Promise<Product | null> {
@@ -25,11 +26,11 @@ export async function getProduct(id: string | number): Promise<Product | null> {
   const text = await res.text();
   if (!text) return null;
   const data = JSON.parse(text);
-  if (!data || typeof data !== "object") return null;
+  if (!data || typeof data !== "object" || "message" in data) return null;
   return data as Product;
 }
 
-export async function getCategories(): Promise<string[]> {
+export async function getCategories(): Promise<Category[]> {
   const res = await fetch(`${BASE_URL}/products/categories`, {
     next: { revalidate: REVALIDATE_SECONDS },
   });
@@ -40,16 +41,17 @@ export async function getCategories(): Promise<string[]> {
 }
 
 export async function getProductsByCategory(
-  category: string,
+  slug: string,
 ): Promise<Product[]> {
   const res = await fetch(
-    `${BASE_URL}/products/category/${encodeURIComponent(category)}`,
+    `${BASE_URL}/products/category/${encodeURIComponent(slug)}?limit=${DEFAULT_LIMIT}`,
     { next: { revalidate: REVALIDATE_SECONDS } },
   );
   if (!res.ok) {
     throw new Error(
-      `Failed to load products for category ${category}: ${res.status}`,
+      `Failed to load products for category ${slug}: ${res.status}`,
     );
   }
-  return res.json();
+  const data = (await res.json()) as ProductListResponse;
+  return data.products;
 }

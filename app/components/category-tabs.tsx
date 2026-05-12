@@ -1,14 +1,13 @@
 import Link from "next/link";
+import type { Category } from "../lib/types";
 
 type Props = {
-  categories: string[];
+  categories: Category[];
   active?: string;
 };
 
 export function CategoryTabs({ categories, active }: Props) {
-  const all = [{ slug: "", label: "All" }].concat(
-    categories.map((c) => ({ slug: c, label: prettify(c) })),
-  );
+  const all = [{ slug: "", name: "All" }, ...categories];
 
   return (
     <div className="border-b border-[var(--border)]">
@@ -22,7 +21,7 @@ export function CategoryTabs({ categories, active }: Props) {
               : "/";
             return (
               <Link
-                key={tab.label}
+                key={tab.slug || "all"}
                 href={href}
                 className={
                   "whitespace-nowrap py-3 text-sm border-b-2 transition-colors " +
@@ -31,7 +30,7 @@ export function CategoryTabs({ categories, active }: Props) {
                     : "border-transparent text-[var(--muted)] hover:text-black")
                 }
               >
-                {tab.label}
+                {tab.name}
               </Link>
             );
           })}
@@ -39,11 +38,4 @@ export function CategoryTabs({ categories, active }: Props) {
       </div>
     </div>
   );
-}
-
-function prettify(category: string): string {
-  return category
-    .split(" ")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
 }

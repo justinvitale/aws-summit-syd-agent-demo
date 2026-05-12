@@ -15,17 +15,17 @@ export function ProductCard({ product, priority = false }: Props) {
       className="group block border border-[var(--border)] bg-white hover:border-black transition-colors"
     >
       <ProductImage
-        src={product.image}
+        src={product.thumbnail}
         alt={product.title}
         priority={priority}
       />
       <div className="border-t border-[var(--border)] group-hover:border-black transition-colors p-4">
         <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[var(--muted)]">
-          <span>{product.category}</span>
+          <span className="truncate">{prettyCategory(product.category)}</span>
           <span aria-hidden>•</span>
-          <span className="inline-flex items-center gap-1">
+          <span className="inline-flex items-center gap-1 shrink-0">
             <StarIcon />
-            {product.rating.rate.toFixed(1)}
+            {product.rating.toFixed(1)}
           </span>
         </div>
         <h3 className="mt-2 text-sm font-medium leading-snug line-clamp-2 min-h-[2.5rem]">
@@ -40,6 +40,13 @@ export function ProductCard({ product, priority = false }: Props) {
       </div>
     </Link>
   );
+}
+
+function prettyCategory(slug: string): string {
+  return slug
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
 function StarIcon() {

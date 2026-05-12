@@ -3,10 +3,10 @@ import { TriangleLogo } from "./triangle-logo";
 
 const NAV_LINKS = [
   { href: "/", label: "Shop" },
-  { href: "/?category=electronics", label: "Electronics" },
-  { href: "/?category=jewelery", label: "Jewelery" },
-  { href: "/?category=men%27s%20clothing", label: "Men" },
-  { href: "/?category=women%27s%20clothing", label: "Women" },
+  { href: "/?category=laptops", label: "Laptops" },
+  { href: "/?category=smartphones", label: "Phones" },
+  { href: "/?category=mens-shirts", label: "Apparel" },
+  { href: "/?category=sunglasses", label: "Accessories" },
 ];
 
 export function Header() {
