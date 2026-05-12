@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Product } from "../lib/types";
 import { ProductImage } from "./product-image";
 import { Price } from "./price";
+import { SaleBadge } from "./sale-badge";
+import { getSalePrice, isOnSale } from "../lib/sale";
 
 type Props = {
   product: Product;
@@ -9,11 +11,15 @@ type Props = {
 };
 
 export function ProductCard({ product, priority = false }: Props) {
+  const onSale = isOnSale(product.category);
+  const salePrice = onSale ? getSalePrice(product.price) : undefined;
+
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group block border border-[var(--border)] bg-white hover:border-black transition-colors"
+      className="group block border border-[var(--border)] bg-white hover:border-black transition-colors relative"
     >
+      {onSale && <SaleBadge className="absolute top-3 left-3 z-10" />}
       <ProductImage
         src={product.thumbnail}
         alt={product.title}
@@ -32,7 +38,7 @@ export function ProductCard({ product, priority = false }: Props) {
           {product.title}
         </h3>
         <div className="mt-3 flex items-baseline justify-between">
-          <Price value={product.price} className="text-sm" />
+          <Price value={product.price} salePrice={salePrice} className="text-sm" />
           <span className="text-xs font-mono text-[var(--muted)] opacity-0 group-hover:opacity-100 transition-opacity">
             View →
           </span>
