@@ -5,10 +5,6 @@ import { getProduct, getProductsByCategory } from "../../lib/api";
 import { ProductImage } from "../../components/product-image";
 import { Price } from "../../components/price";
 import { ProductCard } from "../../components/product-card";
-import { SaleBadge } from "../../components/sale-badge";
-import { getSalePrice, isOnSale } from "../../lib/sale";
-import { RecentlyViewed } from "../../components/recently-viewed";
-import { RecentlyViewedTracker } from "../../components/recently-viewed-tracker";
 
 type Params = Promise<{ id: string }>;
 
@@ -44,8 +40,6 @@ export default async function ProductDetailPage({
 
   const heroImage = product.images?.[0] ?? product.thumbnail;
   const categoryLabel = prettyCategory(product.category);
-  const onSale = isOnSale(product.category);
-  const salePrice = onSale ? getSalePrice(product.price) : undefined;
 
   return (
     <>
@@ -68,8 +62,7 @@ export default async function ProductDetailPage({
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
-          <div className="border border-[var(--border)] relative">
-            {onSale && <SaleBadge className="absolute top-3 left-3 z-10" />}
+          <div className="border border-[var(--border)]">
             <ProductImage
               src={heroImage}
               alt={product.title}
@@ -88,11 +81,7 @@ export default async function ProductDetailPage({
             </h1>
 
             <div className="mt-4 flex items-center gap-4">
-              <Price
-                value={product.price}
-                salePrice={salePrice}
-                className="text-2xl"
-              />
+              <Price value={product.price} className="text-2xl" />
               <div className="flex items-center gap-1 text-sm text-[var(--muted)]">
                 <StarRow rate={product.rating} />
                 <span className="font-mono">{product.rating.toFixed(1)}</span>
@@ -141,8 +130,6 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      <RecentlyViewed excludeId={product.id} />
-
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 border-t border-[var(--border)]">
           <h2 className="text-sm font-mono uppercase tracking-wider text-[var(--muted)] mb-6">
@@ -155,8 +142,6 @@ export default async function ProductDetailPage({
           </div>
         </section>
       )}
-
-      <RecentlyViewedTracker productId={product.id} />
     </>
   );
 }

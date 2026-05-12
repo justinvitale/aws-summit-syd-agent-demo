@@ -7,7 +7,7 @@ const SECTIONS: { title: string; links: { href: string; label: string }[] }[] =
       title: "Shop",
       links: [
         { href: "/", label: "All laptops" },
-        { href: "/", label: "Summit Sale" },
+        { href: "/", label: "New arrivals" },
         { href: "/", label: "Accessories" },
         { href: "/", label: "Gift cards" },
       ],
