@@ -45,18 +45,18 @@ export default async function ProductDetailPage({
     <>
       <div className="border-b border-[var(--border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-xs font-mono text-[var(--muted)] flex items-center gap-2">
-          <Link href="/" className="hover:text-black transition-colors">
+          <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
             Shop
           </Link>
           <span aria-hidden>/</span>
           <Link
             href={`/?category=${encodeURIComponent(product.category)}`}
-            className="hover:text-black transition-colors"
+            className="hover:text-[var(--foreground)] transition-colors"
           >
             {categoryLabel}
           </Link>
           <span aria-hidden>/</span>
-          <span className="truncate text-black">{product.title}</span>
+          <span className="truncate text-[var(--foreground)]">{product.title}</span>
         </div>
       </div>
 
@@ -95,14 +95,14 @@ export default async function ProductDetailPage({
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="inline-flex items-center justify-center bg-black text-white px-6 h-11 text-sm font-medium hover:bg-zinc-800 transition-colors disabled:opacity-50"
+                className="inline-flex items-center justify-center bg-[var(--foreground)] text-[var(--background)] px-6 h-11 text-sm font-medium hover:bg-zinc-300 transition-colors disabled:opacity-50"
                 disabled={product.stock === 0}
               >
                 {product.stock === 0 ? "Out of stock" : "Add to cart"}
               </button>
               <button
                 type="button"
-                className="inline-flex items-center justify-center border border-[var(--border)] hover:border-black px-6 h-11 text-sm font-medium transition-colors"
+                className="inline-flex items-center justify-center border border-[var(--border)] hover:border-[var(--foreground)] px-6 h-11 text-sm font-medium transition-colors"
               >
                 Save for later
               </button>
@@ -166,7 +166,7 @@ function StarRow({ rate }: { rate: number }) {
           fill={i < rounded ? "currentColor" : "none"}
           stroke="currentColor"
           strokeWidth="2"
-          className={i < rounded ? "text-black" : "text-[var(--muted)]"}
+          className={i < rounded ? "text-[var(--foreground)]" : "text-[var(--muted)]"}
           aria-hidden="true"
         >
           <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />

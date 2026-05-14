@@ -53,7 +53,7 @@ export function Footer() {
           </div>
           {SECTIONS.map((section) => (
             <div key={section.title}>
-              <h3 className="text-xs font-mono uppercase tracking-wider text-black">
+              <h3 className="text-xs font-mono uppercase tracking-wider text-[var(--foreground)]">
                 {section.title}
               </h3>
               <ul className="mt-4 space-y-3">
@@ -61,7 +61,7 @@ export function Footer() {
                   <li key={link.href + link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[var(--muted)] hover:text-black transition-colors"
+                      className="text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
                     >
                       {link.label}
                     </Link>

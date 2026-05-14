@@ -10,7 +10,7 @@ const NAV_LINKS = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur supports-[backdrop-filter]:bg-[var(--background)]/60">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-8">
           <Link
@@ -26,7 +26,7 @@ export function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="hover:text-black transition-colors"
+                className="hover:text-[var(--foreground)] transition-colors"
               >
                 {link.label}
               </Link>
@@ -36,13 +36,13 @@ export function Header() {
         <div className="flex items-center gap-3 text-sm">
           <Link
             href="/"
-            className="hidden sm:inline-flex items-center text-[var(--muted)] hover:text-black transition-colors"
+            className="hidden sm:inline-flex items-center text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
           >
             Search
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3 py-1.5 text-xs font-medium hover:border-black transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3 py-1.5 text-xs font-medium hover:border-[var(--foreground)] transition-colors"
           >
             <span aria-hidden>◷</span> Cart
             <span className="font-mono text-[var(--muted)]">(0)</span>

@@ -12,14 +12,14 @@ export function ProductCard({ product, priority = false }: Props) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group block border border-[var(--border)] bg-white hover:border-black transition-colors"
+      className="group block border border-[var(--border)] bg-[var(--background)] hover:border-[var(--foreground)] transition-colors"
     >
       <ProductImage
         src={product.thumbnail}
         alt={product.title}
         priority={priority}
       />
-      <div className="border-t border-[var(--border)] group-hover:border-black transition-colors p-4">
+      <div className="border-t border-[var(--border)] group-hover:border-[var(--foreground)] transition-colors p-4">
         <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[var(--muted)]">
           <span className="truncate">{prettyCategory(product.category)}</span>
           <span aria-hidden>•</span>
