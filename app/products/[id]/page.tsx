@@ -5,6 +5,8 @@ import { getProduct, getProductsByCategory } from "../../lib/api";
 import { ProductImage } from "../../components/product-image";
 import { Price } from "../../components/price";
 import { ProductCard } from "../../components/product-card";
+import { RecentlyViewed } from "../../components/recently-viewed";
+import { RecentlyViewedTracker } from "../../components/recently-viewed-tracker";
 
 type Params = Promise<{ id: string }>;
 
@@ -130,6 +132,8 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
+      <RecentlyViewed excludeId={product.id} />
+
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 border-t border-[var(--border)]">
           <h2 className="text-sm font-mono uppercase tracking-wider text-[var(--muted)] mb-6">
@@ -142,6 +146,8 @@ export default async function ProductDetailPage({
           </div>
         </section>
       )}
+
+      <RecentlyViewedTracker productId={product.id} />
     </>
   );
 }
